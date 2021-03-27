@@ -7,25 +7,24 @@ import cn.nukkit.Server;
 import ru.ragnok123.minigameAPI.Minigame;
 import ru.ragnok123.minigameAPI.player.GamePlayer;
 
-public abstract class ITeamArena extends IArena {
+public abstract class ITeamArena<T extends Team> extends IArena {
 
-	public ArrayList<Team> aliveTeams;
+	public ArrayList<T> aliveTeams;
 	
 	public ITeamArena(ArenaManager manager, String modeId, Integer arenaId) {
 		super(manager, modeId, arenaId);
 	}
 	
-	public ArrayList<Team> getTeams(){
+	public ArrayList<T> getTeams(){
 		return aliveTeams;
 	}
 	
 	public void joinRandomTeam(Player player) {
-		Team t = getSmallestTeam();
+		T t = getSmallestTeam();
 		selectTeam(player, t);
 	}
 	
 	public void joinTeams() {
-
 		for(Player p : players.values()) {
 			if(getTeam(p) == null) {
 				joinRandomTeam(p);
@@ -33,7 +32,7 @@ public abstract class ITeamArena extends IArena {
 		}
 	}
 	
-	public void selectTeam(Player player, Team komanda) {
+	public void selectTeam(Player player, T komanda) {
 		GamePlayer p = Minigame.getPlayer(player.getName());
 		if(getTeams().contains(komanda)) {
 			if(komanda.players.size() >= komanda.maxMembers) {
@@ -52,9 +51,9 @@ public abstract class ITeamArena extends IArena {
 	
 	
 	
-	public Team getTeam(Player p) {
-		Team t = null;
-		for(Team team : getTeams()) {
+	public T getTeam(Player p) {
+		T t = null;
+		for(T team : getTeams()) {
 			if(team.players.containsKey(p.getName())) {
 				t = team;
 			}
@@ -62,10 +61,10 @@ public abstract class ITeamArena extends IArena {
 		return t;
 	}
 	
-	public Team getSmallestTeam() {
-		Team t = null;
+	public T getSmallestTeam() {
+		T t = null;
 		int i = -1;
-		for(Team team : getTeams()) {
+		for(T team : getTeams()) {
 			if(i == -1) {
 				t = team;
 				i = team.players.size();
