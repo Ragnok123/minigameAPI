@@ -19,16 +19,16 @@ public abstract class IArena {
 	public int PHASE = 0;
 	public int time;
 	
-	private String modeId;
+	private ArenaParameters params;
 	protected Integer id;
 	@Getter
 	private ArenaManager gameManager;
 	
 	public HashMap<String, Player> players = new HashMap<String, Player>();
 	
-	public IArena(ArenaManager manager, String modeId, Integer arenaId) {
+	public IArena(ArenaManager manager, ArenaParameters params, Integer arenaId) {
 		this.gameManager = manager;
-		this.modeId = modeId;
+		this.params = params;
 		this.id = arenaId;
 	}
 	
@@ -39,8 +39,8 @@ public abstract class IArena {
 	public int getId() {
 		return this.id;
 	}
-	public String getModeId() {
-		return this.modeId;
+	public ArenaParameters getParams() {
+		return this.params;
 	}
 	
 	public abstract void selectLevel();
@@ -77,6 +77,9 @@ public abstract class IArena {
 		pl.setArena(null);
 	}
 	
+	public HashMap<String,Player> getPlayers(){
+		return players;
+	}
 	public boolean game(Player p) {
 		return players.containsKey(p.getName());
 	}

@@ -18,7 +18,7 @@ public abstract class ArenaTimer extends Task{
 		if(this.arena.PHASE == IArena.WAITING_FOR_PLAYERS) {
 			if(this.arena.players.size() >= this.arena.getMinPlayers()) {
 				this.arena.PHASE = IArena.COUNTDOWN;
-				this.arena.time = 90;
+				this.arena.time = getWaitTime();
 			}
 		} else if(this.arena.PHASE == IArena.COUNTDOWN) {
 			this.arena.time--;
@@ -42,6 +42,7 @@ public abstract class ArenaTimer extends Task{
 	
 	public abstract void tickCountdown(int second);
 	public abstract void tickGame(int second);
+	public abstract int getWaitTime();
 	public abstract int getGameTime(); //it is in seconds;
 	public abstract void onEnd();
 	

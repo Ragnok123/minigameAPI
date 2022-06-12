@@ -11,8 +11,8 @@ public abstract class ITeamArena<T extends Team> extends IArena {
 
 	public ArrayList<T> aliveTeams;
 	
-	public ITeamArena(ArenaManager manager, String modeId, Integer arenaId) {
-		super(manager, modeId, arenaId);
+	public ITeamArena(ArenaManager manager, ArenaParameters params, Integer arenaId) {
+		super(manager, params, arenaId);
 	}
 	
 	public ArrayList<T> getTeams(){

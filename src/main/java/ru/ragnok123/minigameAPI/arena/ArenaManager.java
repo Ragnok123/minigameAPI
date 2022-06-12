@@ -46,19 +46,19 @@ public abstract class ArenaManager {
 		return null;
 	}
 	
-	public abstract IArena generateNewArena(String mode);
+	public abstract IArena generateNewArena(ArenaParameters params);
 	
-	public IArena getAvailableArena(String type) {
+	public IArena getAvailableArena(ArenaParameters params) {
 		for(IArena aren : getArenas()) {
-			if(aren.getModeId().equals(type)) {
+			if(aren.getParams().paramsToString().equals(params.paramsToString())) {
 				if(aren.isJoinable()) {
 					return aren;
 				} else {
-					return generateNewArena(type);
+					return generateNewArena(params);
 				}
 			}
 		}
-		return generateNewArena(type);
+		return generateNewArena(params);
 	}
 	
 	
